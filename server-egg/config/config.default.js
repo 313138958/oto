@@ -11,13 +11,13 @@ module.exports = appInfo => {
    * @type {Egg.EggAppConfig}
    **/
   const config = exports = {};
-
+  const witchlist = require('./witchlist')
   // use for cookie sign key, should change to your own and keep security
   config.keys = appInfo.name + '_1580467996271_4545';
 
   // add your middleware config here
-  config.middleware = [];
-
+  config.middleware = ['usertoken'];
+  config.usertoken = witchlist
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',

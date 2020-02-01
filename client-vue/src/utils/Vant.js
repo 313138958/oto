@@ -4,3 +4,5 @@ import { Button } from 'vant';
 
 Vue.use(Button);
 Vue.use(Field);
+
+export default Vue

@@ -18,5 +18,11 @@ export default (method,url,data=[])=>{
             alert('服务器报错')
             return
         }
+        if(error.response.status ===401){
+            if(window.confirm('没有登录,或全选不足,请登录')){
+                window.location.href = '/login'
+            }
+            return
+        }
     })
 }
