@@ -8,7 +8,10 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: Home
+    component: Home,
+    meta:{
+      isLogin:true
+    }
   },
   {
     path: '/login',
@@ -22,7 +25,10 @@ const routes = [
   {
     path:'/detail',
     name:'detail',
-    component:()=>import('../views/Details.vue')
+    component:()=>import('../views/Details.vue'),
+    meta:{
+      isLogin:true
+    }
   },
   {
     path:'/',
@@ -35,5 +41,23 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to,from,next)=>{
+  if(to.meta.isLogin){
+    if(localStorage.getItem('token')){
+      next()
+      return
+    }
+    alert('没有登录,请登录')
+    next('/login')
+    return
+  }
+
+  next()
+})
+  
+
+
+
 
 export default router
