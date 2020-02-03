@@ -9,4 +9,5 @@ module.exports = app => {
   router.post('/login',controller.user.login)
   router.post('/register',controller.user.register)
   router.get('/getlist',controller.news.getlist)
+  router.post('/getdetails',controller.news.getdetails)
 };

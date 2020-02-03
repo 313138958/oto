@@ -1,8 +1,6 @@
 import Vue from 'vue';
-import { Field } from 'vant';
-import { Button } from 'vant';
-
+import { Field,Button,Search  } from 'vant';
 Vue.use(Button);
 Vue.use(Field);
+Vue.use(Search);
 
-export default Vue

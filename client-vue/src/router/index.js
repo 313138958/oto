@@ -20,6 +20,11 @@ const routes = [
     component:()=> import('../views/Register.vue')
   },
   {
+    path:'/detail',
+    name:'detail',
+    component:()=>import('../views/Details.vue')
+  },
+  {
     path:'/',
     redirect:'/login'
   }

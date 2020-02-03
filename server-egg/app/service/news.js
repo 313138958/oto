@@ -5,6 +5,10 @@ class NewsService extends Service {
         const result = this.app.mysql.select('program')
         return result
     }
+    async getdetails({id}){
+        const result = this.app.mysql.select('content',{where:{guishu:id}})
+        return result
+    }
 }   
 
 module.exports = NewsService;

@@ -9,7 +9,13 @@ class NewsController extends Controller {
     if(result.length>0){
         ctx.body = {code:1,msg:'',result}
     }
-    
+  }
+  async getdetails(){
+    const { ctx } = this;
+    const result = await ctx.service.news.getdetails(ctx.request.body)
+    if(result.length>0){
+      ctx.body = {code:1,msg:'',result}
+    }
   }
 }
 
