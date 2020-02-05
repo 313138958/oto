@@ -1,18 +1,22 @@
 import React, { Component } from 'react'
-import { Table, Divider ,Button, Modal } from 'antd';
+import { Table, Modal ,Tag } from 'antd';
+import Up from '../../components/Updata'
 const { confirm } = Modal;
 export default class userlist extends Component {
     state = {
-        data:[]
+        data:[],
+        visible: false,
+        look:{}
     }
-    showDeleteConfirm =()=> {
+    showDeleteConfirm =(id)=> {
         confirm({
           title: 'Are you sure delete this task?',
           content: 'Some descriptions',
           okText: 'Yes',
           okType: 'danger',
           cancelText: 'No',
-          onOk() {
+          onOk:()=> {
+            console.log(id)
             console.log('OK');
           },
           onCancel() {
@@ -20,17 +24,23 @@ export default class userlist extends Component {
           },
         });
       }
+      handleLock(item){
+        this.setState({
+          visible: true,
+          look:item
+        })
+      }
     render() {
         const columns = [
             {
-              title: 'Name',
-              dataIndex: 'name',
-              key: 'name'
+              title: 'Id',
+              dataIndex: 'id',
+              key: 'id'
             },
             {
-              title: 'Age',
-              dataIndex: 'age',
-              key: 'age',
+              title: 'User',
+              dataIndex: 'username',
+              key: 'username',
             },
             {
                 title: 'Role',
@@ -38,27 +48,32 @@ export default class userlist extends Component {
                 key: 'role',
             },
             {
-              title: 'Address',
-              dataIndex: 'address',
-              key: 'address',
-            },
-            {
-              title: 'Action',
-              key: 'action',
+              title: '操作',
+              dataIndex:'password',
+              key:'password',
               render: (text, record) => (
-                <span>
-                <Button type="primary">编辑</Button>
-                  <Divider type="vertical" />
-                  <Button onClick={this.showDeleteConfirm} type="danger">
-                    Delete
-                    </Button>
-                </span>
+                <div>
+                  <Tag onClick={this.handleLock.bind(this,record)}>查看</Tag>
+                  <Tag><Up record={record} getuserlist={this.getuserlist}></Up></Tag>
+                  <Tag onClick={this.showDeleteConfirm.bind(this,record.id)}>删除</Tag>
+                </div>
               ),
             },
           ]
         return (
             <div>
             <Table rowKey='id' columns={columns} dataSource={this.state.data} />
+            <Modal
+            title="用户信息"
+            visible={this.state.visible}
+            onOk={()=>this.setState({visible: false,})}
+            onCancel={()=>this.setState({visible: false,})}
+            okText="确认"
+          >
+          <p>用户名:{this.state.look.username}</p>
+          <p>密码:{this.state.look.password}</p>
+          <p>姓名:{this.state.look.name}</p>
+          </Modal>
             </div>
         )
     }

@@ -53,6 +53,10 @@ class Home extends Component {
           collapsed: !this.state.collapsed,
         });
       }
+      handleClick = ()=>{
+        localStorage.clear()
+        this.props.history.push('/login')
+      }
     render() {
         return (
             <div className="home">
@@ -79,6 +83,7 @@ class Home extends Component {
               type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
               onClick={this.toggle}
             />
+            <div style={{float:"right"}} onClick={this.handleClick}> {localStorage.user}|退出 </div>
           </Header>
           <Content
             style={{
@@ -88,6 +93,7 @@ class Home extends Component {
               minHeight: 280,
             }}
           >
+            
             <Switch>
                 <Redirect from='/home' to='/home/wrok' exact/>
                 <Route path="/home/wrok" component={wrok}></Route>
