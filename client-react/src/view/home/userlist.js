@@ -16,8 +16,10 @@ export default class userlist extends Component {
           okType: 'danger',
           cancelText: 'No',
           onOk:()=> {
-            console.log(id)
-            console.log('OK');
+            this.Api('post','/deletelist',{id}).then(res=>{
+                alert(res.data.msg)
+                this.getuserlist()
+            })
           },
           onCancel() {
             console.log('Cancel');
@@ -54,7 +56,7 @@ export default class userlist extends Component {
               render: (text, record) => (
                 <div>
                   <Tag onClick={this.handleLock.bind(this,record)}>查看</Tag>
-                  <Tag><Up record={record} getuserlist={this.getuserlist}></Up></Tag>
+                  <Tag><Up record={record} getuserlist={this.getuserlist.bind(this)}></Up></Tag>
                   <Tag onClick={this.showDeleteConfirm.bind(this,record.id)}>删除</Tag>
                 </div>
               ),

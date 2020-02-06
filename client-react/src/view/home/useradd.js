@@ -11,6 +11,9 @@ class useradd extends Component {
         this.props.form.validateFieldsAndScroll((err, values) => {
           if (!err) {
             console.log('Received values of form: ', values);
+            this.Api('post','/addlist',values).then(res=>{
+              console.log(res)
+            })
           }
         });
       };
@@ -74,6 +77,16 @@ class useradd extends Component {
                   },
                 ],
               })(<Input.Password onBlur={this.handleConfirmBlur} />)}
+            </Form.Item>
+            <Form.Item label="姓名">
+              {getFieldDecorator('name',{
+                rules: [
+                  {
+                    required: true,
+                    message: 'Please input your name!',
+                  },
+                ],
+              })(<Input />)}
             </Form.Item>
         <Form.Item {...tailFormItemLayout}>
           <Button type="primary" htmlType="submit">
