@@ -11,42 +11,7 @@ const { SubMenu } = Menu;
 class Home extends Component {
     state = {
         collapsed: false,
-        navlist:[
-            {
-                title:'用户管理',
-                type:'user',
-                key:'sub1',
-                sub:[
-                    {   
-                        key:1,
-                        name:'用户列表',
-                        to:'/home/userlist'
-                    },
-                    {   
-                        key:2,
-                        name:'添加用户',
-                        to:'/home/useradd'
-                    }
-                ]
-            },
-            {
-                title:'角色管理',
-                type:'team',
-                key:'sub2',
-                sub:[
-                    {   
-                        key:3,
-                        name:'角色列表',
-                        to:'/home/rolelist'
-                    },
-                    {   
-                        key:4,
-                        name:'添加角色',
-                        to:'/home/roleadd'
-                    }
-                ]
-            }
-        ]
+        navlist:[]
       }
       toggle = () => {
         this.setState({
@@ -65,8 +30,9 @@ class Home extends Component {
           <div className="logo" onClick={()=>this.props.history.push('/home/wrok')}>工作台</div>
           <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
           {
-              this.state.navlist.map(item=>{
-                return <SubMenu key={item.key} title={<span><Icon type={item.type} /><span>{item.title}</span></span>}>
+              this.state.navlist.map((item,key)=>{
+                ++key
+                return <SubMenu key={'sub' + key} title={<span><Icon type={item.icon} /><span>{item.title}</span></span>}>
                     {
                         item.sub.map(jtem=> <Menu.Item key={jtem.key} onClick={()=>this.props.history.push(jtem.to)} >{jtem.name}</Menu.Item>)  
                     }
@@ -107,6 +73,13 @@ class Home extends Component {
       </Layout>
             </div>
         )
+    }
+    componentDidMount(){
+      this.Api('get','/getmenu').then(res=>{
+        this.setState({
+          navlist:res.data.Menu
+        })
+      })
     }
 }
 export default Home

@@ -15,7 +15,11 @@ class UserController extends Controller {
         ctx.body={code:0,msg:'密码错误'}
         return
     }
-    const token  = jwt.sign({...result[0]},app.config.keys)
+    let userToken = {
+      ...result[0],
+      tim:new Date().getTime()
+    }
+    const token  = jwt.sign(userToken,app.config.keys)
     ctx.body = {
         code:1,
         msg:'登录成功',

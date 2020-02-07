@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal ,Input ,Select  } from 'antd';
-const { Option, OptGroup } = Select;
+const { Option } = Select;
 class Updata extends Component {
     state ={
         visible:false,
