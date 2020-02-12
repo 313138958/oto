@@ -13,7 +13,10 @@ import {Form,Input,Button,} from 'antd';
         if (!err) {
           console.log('Received values of form: ', values);
           this.Api('post','/register',values).then(res=>{
-              console.log(res)
+             if( window.confirm(res.data.msg)){
+              this.props.history.push('/login')
+             }
+
           })
         }
       });

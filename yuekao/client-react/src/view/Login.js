@@ -8,7 +8,12 @@ class Login extends Component {
           if (!err) {
             console.log('Received values of form: ', values);
             this.Api('post','/login',values).then(res=>{
-                console.log(res)
+                alert(res.data.msg)
+                if(res.data.code===1){
+                   localStorage.setItem('token',res.data.token)
+                   localStorage.setItem('user',values.username)
+                   this.props.history.push('/home')
+                }
             })
           }
         });

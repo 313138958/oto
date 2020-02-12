@@ -5,6 +5,7 @@
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
+const witchlist = require('./witchlist')
 module.exports = appInfo => {
   /**
    * built-in config
@@ -16,8 +17,8 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1581402171952_2352';
 
   // add your middleware config here
-  config.middleware = [];
-
+  config.middleware = ['jwtToken'];
+  config.jwtToken   = witchlist
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
